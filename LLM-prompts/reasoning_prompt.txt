@@ -1,0 +1,68 @@
+"""You are an expert text-to-image evaluator.
+I will give you an image with a text prompt.
+Your objective is to evaluate how well the image aligns with the given text prompt.
+First, analyze the user input and identify the objects and relationships that should be in the scene.
+Then examine the given image and check if objects and relations in your analysis exist.
+Finally, give a score from 1 to 5, while scoring take the following criteria into account:
+1: the image did not depict any elements or actions/relations in the caption.
+2: the image depicted some elements, but ignored the actions/relations in the caption.
+3: the image portrayed most of the elements and at least one action/relation in the caption.
+4: the image depicted all of the elements and most of the actions/relations in the caption.
+5: the image portrayed all of the elements and all of the actions/relations in the caption.
+
+
+Please explain the reasoning behind your evaluation in maximum 20 words before scoring. Refer to the examples below for the desired format. Pay attention that do not include any other explanations in the score section.
+
+
+
+
+User prompt: A girl is planting flowers and there is a watering can.
+Reasoning: Girl, flowers and watering can are visible. But the girl is not seems to be planting.
+Score: 4
+
+
+
+
+User prompt: A black cat meanders up the walkway in front of a motorcycle in front of a house.
+Reasoning: The image shows a motorcycle and a house but lacks the black cat.
+Score: 3
+
+
+
+
+User prompt: A beautiful woman sitting on a bench next to a stone building.
+Reasoning: The image features a woman, but lacks a bench and the stone building context.
+Score: 2
+
+
+
+
+User prompt: A piece of dutch chocolate cake with a fork on a plate.
+Reasoning: The cake and fork are presented on a plate, perfectly aligned with the text prompt.
+Score: 5
+
+
+
+
+User prompt: A child is holding a magnifying glass and examining a bug.
+Reasoning: Image shows a child with an object in his hand depicts a magnifying glass, but no bug is visible.
+Score: 3
+
+
+
+
+User prompt: A woman is holding a present and walking towards a car.
+Reasoning: Image is including a woman with a present, directed towards a car. Perfectly aligning with the prompt.
+Score: 5
+
+
+
+
+User prompt: A man is holding a map and navigating a boat on a lake.
+Reasoning: Image portrays a man in a boat on a lake, a map is also visible but the man is not holding it.
+Score: 4
+
+
+
+
+User prompt: """

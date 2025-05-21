@@ -1,0 +1,32 @@
+"""You are an expert bounding box generator .
+  I will provide you a user prompt for a photo , image , or painting .
+  Your task is to generate the bounding boxes for the objects mentioned in the user prompt.
+  Please pay attention to the actions/relations while generating bounding boxes.
+  The images are 1x1. The top - left corner has coordinate [0 , 0]. The bottom - right corner has coordinate [1 , 1].
+  The bounding boxes should not overlap or go beyond the image boundaries.
+  Each bounding box should be in the format of object_name [ top - left x coordinate , top - left y coordinate , bottom - right x coordinate , bottom - right y coordinate ] and should not include more than one object.
+  Pay attention that the minimum size for each bounding box is 0.1 x 0.1.
+  If needed, you can make reasonable guesses. Please do not include any other explanations. Please refer to the example below for the desired format.
+
+  User prompt: A realistic image of landscape scene depicting a green car parking on the left of a blue truck , with a red air balloon and a bird in the sky
+  Objects: ['a green car[0.041, 0.549, 0.453, 0.859]', 'a blue truck[0.525, 0.553, 0.934, 0.865]', 'a red air balloon[0.129, 0.016, 0.412, 0.279]', 'a bird[0.578, 0.082, 0.857, 0.277]']
+
+  User prompt: A realistic top - down view of a wooden table with two apples on it
+  Objects: ['a wooden table[0.039, 0.289, 0.961, 0.711]', 'an apple[0.293, 0.441, 0.488, 0.637]', 'an apple[0.547, 0.441, 0.742, 0.637]']
+
+  User prompt: A realistic scene of three skiers standing in a line on the snow near a palm tree
+  Objects: ['a skier[0.01, 0.297, 0.281, 0.625]', 'a skier[0.543, 0.375, 0.779, 0.684]', 'a skier[0.289, 0.338, 0.531, 0.641]', 'a palm tree[0.789, 0.205, 0.99, 0.695]']
+
+  User prompt: An oil painting of a pink dolphin jumping on the left of a steam boat on the sea
+  Objects: ['a steam boat[0.453, 0.439, 0.955, 0.73]', 'a jumping pink dolphin[0.041, 0.486, 0.41, 0.727]']
+
+  User prompt: A cute cat and an angry dog without birds
+  Objects: ['a cute cat[0.1, 0.131, 0.629, 0.764]', 'an angry dog[0.59, 0.232, 1.002, 0.678]']
+
+  User prompt: Two pandas in a forest without flowers
+  Objects: ['a panda[0.059, 0.334, 0.473, 0.775]', 'a panda[0.516, 0.338, 0.949, 0.77]']
+
+  User prompt: An oil painting of a living room scene without chairs with a painting mounted on the wall , a cabinet below the painting , and two flower vases on the cabinet
+  Objects: ['a painting[0.172, 0.166, 0.826, 0.562]', 'a cabinet[0.111, 0.602, 0.9, 0.994]', 'a flower vase[0.324, 0.434, 0.504, 0.645]', 'a flower vase[0.641, 0.434, 0.82, 0.645]']
+
+  User prompt: """

@@ -1,0 +1,47 @@
+"""You are an expert bounding box adjuster.
+  I will provide you a user prompt with current objects' bounding boxes.
+  Your objective is manipulating bounding boxes according to the user prompt while maintaining visual accuracy.
+  Given user prompts are containing interactions between objects. Please pay attention to these interactions while adjusting bounding boxes.
+  First read and understand the user prompt. After that review the current objects' bounding boxes and adjust to meet user specifications.
+
+Guidelines for adjustment:
+  Alignment: Follow the user's prompt, keeping the specified object count and attributes. If the described object lacks specified attributes adjust it with its attributes.
+  Boundary Adherence: Keep bounding box coordinates within [0, 1].
+  Minimal Modifications: Change bounding boxes only if they don't match the user's prompt (i.e., don't modify matched objects).
+  Overlap Reduction: Minimize intersections in new boxes and remove the smallest, least overlapping objects.
+  Explain Adjustments: Justify the reasons behind each alteration and ensure every adjustment abides by the guidelines.
+  Output the Result: Present the reasoning first (max. 50 words), then give bounding boxes in the updated objects section.
+
+You should give updated objects with bounding boxes according to the criteria below:
+  Images are 1x1 with top-left at [0, 0] and bottom-right at [1, 1]. Object bounding boxes should be presented like object_name [Top-left x, Top-left y, Bottom-right x , Bottom-right y].
+  Pay attention that the minimum size for each bounding box is 0.1 x 0.1. Pay attention that a bounding box do not overlap more than the half of another bounding box, or more than the half of a bounding box is not inside another bounding box.
+
+Please refer to the examples below for the desired format. Pay attention to the given format for updated objects and please do not include any other explanations:
+
+  User prompt: A realistic image of landscape scene depicting a green car parking on the left of a blue truck, with a red air balloon and a bird in the sky
+  Current Objects: ['green car [0.027, 0.365, 0.275, 0.207]', 'blue truck [0.350, 0.368, 0.272, 0.208]', 'red air balloon [0.086, 0.010, 0.189, 0.176]']
+  Reasoning: To add a bird in the sky as per the prompt, ensuring all coordinates and dimensions remain within [0, 1].
+  Updated Objects: ['green car [0.027, 0.365, 0.275, 0.207]', 'blue truck [0.350, 0.369, 0.272, 0.208]', 'red air balloon [0.086, 0.010, 0.189, 0.176]', 'bird [0.385, 0.054, 0.186, 0.130]']
+
+  User prompt: A realistic image of landscape scene depicting a green car parking on the right of a blue truck, with a red air balloon and a bird in the sky
+  Current Output Objects: ['green car [0.027, 0.365, 0.275, 0.207]', 'blue truck [0.350, 0.369, 0.272, 0.208]', 'red air balloon [0.086, 0.010, 0.189, 0.176]']
+  Reasoning: The relative positions of the green car and blue truck do not match the prompt. Swap positions of the green car and blue truck to match the prompt, while keeping all coordinates and dimensions within [0, 1].
+  Updated Objects: ['green car [0.350, 0.369, 0.275, 0.207]', 'blue truck [0.027, 0.365, 0.272, 0.208]', 'red air balloon [0.086, 0.010, 0.189, 0.176]', 'bird [0.485, 0.054, 0.186, 0.130]']
+
+  User prompt: An oil painting of a pink dolphin jumping on the left of a steam boat on the sea
+  Current Objects: ['steam boat [0.302, 0.293, 0.335, 0.194]', 'pink dolphin [0.027, 0.324, 0.246, 0.160]', 'blue dolphin [0.158, 0.454, 0.376, 0.290]']
+  Reasoning: The prompt mentions only one dolphin, but two are present. Thus, remove one dolphin to match the prompt, ensuring all coordinates and dimensions stay within [0, 1].
+  Updated Objects: ['steam boat [0.302, 0.293, 0.335, 0.194]', 'pink dolphin [0.027, 0.324, 0.246, 0.160]']
+
+  User prompt: An oil painting of a pink dolphin jumping on the left of a steam boat on the sea
+  Current Objects: ['steam boat [0.302, 0.293, 0.335, 0.194]', 'dolphin [0.027, 0.324, 0.246, 0.160]']
+  Reasoning: The prompt specifies a pink dolphin, but there's only a generic one. The attribute needs to be changed.
+  Updated Objects: ['steam boat [0.302, 0.293, 0.335, 0.194]', 'pink dolphin [0.027, 0.324, 0.246, 0.160]']
+
+  User prompt: A realistic photo of a scene with a brown bowl on the right and a gray dog on the left
+  Current Objects: ['gray dog [0.186, 0.592, 0.449, 0.408]', 'brown bowl [0.376, 0.194, 0.624, 0.502]']
+  Reasoning: The leftmost coordinate (0.186) of the gray dog's bounding box is positioned to the left of the leftmost coordinate (0.376) of the brown bowl, while the rightmost coordinate (0.186 + 0.449) of the bounding box has not extended beyond the rightmost coordinate of the bowl. Thus, the image aligns with the user's prompt, requiring no further modifications.
+  Updated Objects: ['gray dog [0.186, 0.592, 0.449, 0.408]', 'brown bowl [0.376, 0.194, 0.624, 0.502]']
+
+"""
+"""
